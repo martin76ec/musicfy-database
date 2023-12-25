@@ -1,5 +1,7 @@
-{ "dependencies": { "@prisma/client": "^5.7.1", "prisma": "^5.7.1" }, "name": "database", "module": "index.ts", "type": "module", "devDependencies": {
-  "bun-types": "latest"
+{ "dependencies": { "@prisma/client": "5.7.1", "prisma": "5.7.1" }, "name": "database", "module": "index.ts", "type": "module", "devDependencies": {
+  "@mermaid-js/mermaid-cli": "^10.6.1",
+  "bun-types": "latest",
+  "prisma-erd-generator": "^1.11.2"
 }, "peerDependencies": {
   "typescript": "^5.0.0"
 } }
