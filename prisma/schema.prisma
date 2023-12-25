@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Album {
+  id Int @id @default(autoincrement())
+  name String
+  songs AlbumSongLink[]
+  author AlbumAuthorLink[]
+}
+
+model Author {
+  id Int @id @default(autoincrement())
+  name String
+  nickname String?
+  album AlbumAuthorLink[]
+}
+
+model Song {
+  id Int @id @default(autoincrement())
+  name String
+  source String
+  album AlbumSongLink[]
+  sources SongSources[]
+}
+
+model Source {
+  id Int @id @default(autoincrement())
+  name String
+  source String
+  extension Extensions @default(mp3)
+  song SongSources[]
+}
+
+model SongSources {
+  songId Int
+  sourceId Int
+  Song Song @relation(fields: [songId], references: [id])
+  Source Source @relation(fields: [sourceId], references: [id])
+  @@id([songId, sourceId])
+}
+
+model AlbumAuthorLink {
+  albumId Int
+  authorId Int
+  Album Album @relation(fields: [albumId], references: [id])
+  Author Author @relation(fields: [authorId], references: [id])
+  @@id([albumId, authorId])
+}
+
+model AlbumSongLink {
+  albumId Int
+  songId Int
+  Song Song @relation(fields: [songId], references: [id])
+  Album Album @relation(fields: [albumId], references: [id])
+  @@id([albumId, songId])
+}
+
+enum Extensions {
+   webp
+   mp3
+}
