@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 generator erd {
@@ -9,6 +10,16 @@ generator erd {
 datasource db {
   provider = "postgres"
   url      = env("DATABASE_URL")
+}
+
+generator zod {
+  provider                 = "zod-prisma"
+  output                   = "../plugins/zod"
+  relationModel            = false
+  modelCase                = "PascalCase"
+  modelSuffix              = "Model"
+  useDecimalJs             = true
+  prismaJsonNullability    = true
 }
 
 model Album {
